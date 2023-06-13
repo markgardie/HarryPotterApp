@@ -9,7 +9,7 @@ class GetAllCharactersUseCase @Inject constructor(
     private val repository: CharacterRepository
 ) {
 
-    operator fun invoke(): LiveData<List<CharacterEntity>> {
+    suspend operator fun invoke(): List<CharacterEntity> {
         return repository.getAllCharacters()
     }
 }

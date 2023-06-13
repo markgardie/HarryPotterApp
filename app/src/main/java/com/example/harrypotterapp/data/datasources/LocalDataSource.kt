@@ -9,11 +9,11 @@ class LocalDataSource @Inject constructor(
     private val characterDao: CharacterDao
 ) {
 
-    fun getCachedCharacters(): LiveData<List<CharacterDbModel>> {
+    suspend fun getCachedCharacters(): List<CharacterDbModel> {
         return characterDao.getCachedCharacters()
     }
 
-    fun cacheCharacters(characters: List<CharacterDbModel>) {
+    suspend fun cacheCharacters(characters: List<CharacterDbModel>) {
         characterDao.cacheCharacters(characters)
     }
 }

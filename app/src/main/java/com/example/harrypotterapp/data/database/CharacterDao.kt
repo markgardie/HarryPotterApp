@@ -10,8 +10,8 @@ import androidx.room.Query
 interface CharacterDao {
 
     @Query("select * from characters")
-    fun getCachedCharacters(): LiveData<List<CharacterDbModel>>
+    suspend fun getCachedCharacters(): List<CharacterDbModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun cacheCharacters(characters: List<CharacterDbModel>)
+    suspend fun cacheCharacters(characters: List<CharacterDbModel>)
 }

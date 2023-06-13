@@ -15,11 +15,9 @@ class CharacterRepositoryImpl @Inject constructor(
 ): CharacterRepository {
 
 
-    override fun getAllCharacters() = MediatorLiveData<List<CharacterEntity>>().apply {
-        addSource(remoteDataSource.getAllCharacters()) {
-            value = characterMapper.mapListDtoToListEntity(it)
-        }
-    }
+    override suspend fun getAllCharacters() = characterMapper.mapListDtoToListEntity(
+        remoteDataSource.getAllCharacters()
+    )
 
     override suspend fun cacheCharacters(characters: List<CharacterEntity>) {
         localDataSource.cacheCharacters(
@@ -27,9 +25,8 @@ class CharacterRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun getCachedCharacters() = MediatorLiveData<List<CharacterEntity>>().apply {
-        addSource(localDataSource.getCachedCharacters()) {
-            value = characterMapper.mapListDbModelToListEntity(it)
-        }
-    }
+    override suspend fun getCachedCharacters() = characterMapper.mapListDbModelToListEntity(
+        localDataSource.getCachedCharacters()
+    )
+
 }

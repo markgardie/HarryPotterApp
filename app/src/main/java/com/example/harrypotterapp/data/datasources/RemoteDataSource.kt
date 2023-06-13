@@ -9,7 +9,7 @@ class RemoteDataSource @Inject constructor(
     private val characterApi: CharacterApi
 ) {
 
-    fun getAllCharacters(): LiveData<List<CharacterDto>> {
+    suspend fun getAllCharacters(): List<CharacterDto> {
         return characterApi.getAllCharacters()
     }
 }
