@@ -3,12 +3,12 @@ package com.example.harrypotterapp.data.mappers
 import com.example.harrypotterapp.data.database.CharacterDbModel
 import com.example.harrypotterapp.data.network.CharacterDto
 import javax.inject.Inject
-import com.example.harrypotterapp.domain.models.Character
+import com.example.harrypotterapp.domain.models.CharacterEntity
 
 class CharacterMapper @Inject constructor() {
 
     fun mapDtoToEntity(characterDto: CharacterDto) =
-        Character(
+        CharacterEntity(
             id = characterDto.id,
             name = characterDto.name,
             species = characterDto.species,
@@ -27,7 +27,7 @@ class CharacterMapper @Inject constructor() {
             mapDtoToEntity(it)
         }
 
-    fun mapEntityToDbModel(character: Character) =
+    fun mapEntityToDbModel(character: CharacterEntity) =
         CharacterDbModel(
             id = character.id,
             name = character.name,
@@ -42,14 +42,14 @@ class CharacterMapper @Inject constructor() {
             image = character.image
         )
 
-    fun mapListEntityToListDbModel(list: List<Character>) =
+    fun mapListEntityToListDbModel(list: List<CharacterEntity>) =
         list.map {
             mapEntityToDbModel(it)
         }
 
 
     fun mapDbModelToEntity(characterDbModel: CharacterDbModel) =
-        Character(
+        CharacterEntity(
             id = characterDbModel.id,
             name = characterDbModel.name,
             species = characterDbModel.species,
