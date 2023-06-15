@@ -50,5 +50,5 @@ object NetworkModule {
         return  retrofit.create(CharacterApi::class.java)
     }
 
-    private const val BASE_URL = "https://hp-api.onrender.com/api"
+    private const val BASE_URL = "https://hp-api.onrender.com/api/"
 }
