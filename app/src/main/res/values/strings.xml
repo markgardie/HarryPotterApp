@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HarryPotterApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="name">Name</string>
+    <string name="species">Species</string>
+    <string name="ancestry">Ancestry</string>
+    <string name="character_photo">Character Photo</string>
 </resources>
