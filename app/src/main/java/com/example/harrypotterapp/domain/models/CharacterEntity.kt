@@ -10,7 +10,6 @@ data class CharacterEntity(
     val species: String,
     val gender: String,
     val house: String,
-    val dateOfBirth: String,
     val ancestry: String,
     val eyeColour: String,
     val hairColour: String,

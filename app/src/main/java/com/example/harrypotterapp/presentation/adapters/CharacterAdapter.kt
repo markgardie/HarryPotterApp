@@ -25,9 +25,8 @@ class CharacterAdapter: ListAdapter<CharacterEntity, CharacterViewHolder>(Charac
         with(holder.binding) {
             ivPhoto.load(character.image)
             tvName.text = character.name
-            tvBirthday.text = character.dateOfBirth
             tvSpecies.text = character.species
-
+            tvAncestry.text = character.ancestry
         }
     }
 }
