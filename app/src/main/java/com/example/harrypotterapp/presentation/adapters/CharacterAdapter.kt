@@ -9,6 +9,8 @@ import com.example.harrypotterapp.domain.models.CharacterEntity
 
 class CharacterAdapter: ListAdapter<CharacterEntity, CharacterViewHolder>(CharacterDiffUtil()) {
 
+    var onItemClickListener: ((CharacterEntity) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemCharacterBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -27,6 +29,11 @@ class CharacterAdapter: ListAdapter<CharacterEntity, CharacterViewHolder>(Charac
             tvName.text = character.name
             tvSpecies.text = character.species
             tvAncestry.text = character.ancestry
+            root.setOnClickListener {
+                onItemClickListener?.invoke(character)
+            }
         }
+
+
     }
 }
