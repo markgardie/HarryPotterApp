@@ -1,5 +1,6 @@
 package com.example.harrypotterapp.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.example.harrypotterapp.domain.usecases.GetCachedCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,15 +29,25 @@ class CharacterViewModel @Inject constructor(
     fun getAllCharacters() {
         viewModelScope.launch(Dispatchers.IO) {
 
-            _state.value = CharacterState.Loading
+            withContext(Dispatchers.Main) {
+                _state.value = CharacterState.Loading
+            }
+
 
             try {
                 val characters = gelAllCharactersUseCase()
-                _state.value = CharacterState.Success(characters)
                 cacheCharactersUseCase(characters.subList(0, 9))
+                withContext(Dispatchers.Main) {
+                    _state.value = CharacterState.Success(characters)
+                }
+
 
             } catch (e: Exception) {
-                _state.value = CharacterState.Error("Characters not found")
+                withContext(Dispatchers.Main) {
+                    _state.value = CharacterState.Error("Characters not found")
+                    Log.d("CharacterViewModel", "$e")
+                }
+
             }
         }
     }
@@ -43,12 +55,23 @@ class CharacterViewModel @Inject constructor(
     fun getCachedCharacters() {
 
         viewModelScope.launch(Dispatchers.IO) {
+
+            withContext(Dispatchers.Main) {
+                _state.value = CharacterState.Loading
+            }
+
             try {
                 val characters = getCachedCharactersUseCase()
-                _state.value = CharacterState.Success(characters)
+                withContext(Dispatchers.Main){
+                    _state.value = CharacterState.Success(characters)
+
+                }
 
             } catch (e: Exception) {
-                _state.value = CharacterState.Error("Characters not found")
+                withContext(Dispatchers.Main){
+                    _state.value = CharacterState.Error("Characters not found")
+                }
+
             }
         }
 
