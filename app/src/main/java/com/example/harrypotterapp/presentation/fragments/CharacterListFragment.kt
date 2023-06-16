@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.databinding.FragmentCharacterListBinding
 import com.example.harrypotterapp.presentation.adapters.CharacterAdapter
@@ -52,7 +53,7 @@ class CharacterListFragment : Fragment() {
 
     private fun observerViewModel() {
         viewModel.state.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is CharacterState.Loading -> binding.rvCharacter.visibility = View.GONE
                 is CharacterState.Success -> {
                     binding.rvCharacter.visibility = View.VISIBLE
@@ -71,6 +72,15 @@ class CharacterListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvCharacter.adapter = characterAdapter
+        setupClickListener()
+    }
+
+    private fun setupClickListener() {
+        characterAdapter.onItemClickListener = {
+            val action = CharacterListFragmentDirections
+                .actionCharacterListFragmentToCharacterDetailsFragment(it)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
