@@ -45,12 +45,42 @@ class CharacterDetailsFragment : Fragment() {
         with(binding) {
             ivDetailsPhoto.load(character.image)
             tvDetailsName.text = character.name
-            tvDetailsSpecies.text = character.species
-            tvDetailsHouse.text = character.house
-            tvDetailsAncestry.text = character.ancestry
-            tvDetailsEyeColour.text = character.eyeColour
-            tvDetailsHairColour.text = character.hairColour
-            tvDetailsPatronus.text = character.patronus
+
+
+            tvDetailsGender.text = String.format(
+                getString(R.string.gender),
+                character.gender
+            )
+
+            tvDetailsSpecies.text = String.format(
+                getString(R.string.species),
+                character.species
+            )
+
+            tvDetailsHouse.text = String.format(
+                getString(R.string.house),
+                character.house
+            )
+
+            tvDetailsAncestry.text = String.format(
+                getString(R.string.ancestry),
+                character.ancestry
+            )
+
+            tvDetailsEyeColour.text = String.format(
+                getString(R.string.eye_color),
+                character.eyeColour
+            )
+
+            tvDetailsHairColour.text = String.format(
+                getString(R.string.hair_colour),
+                character.hairColour
+            )
+
+            tvDetailsPatronus.text = String.format(
+                getString(R.string.patronus),
+                character.patronus
+            )
         }
     }
 

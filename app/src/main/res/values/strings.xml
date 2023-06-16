@@ -2,14 +2,14 @@
     <string name="app_name">HarryPotterApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="name">Name</string>
-    <string name="species">Species</string>
-    <string name="ancestry">Ancestry</string>
+    <string name="species">Species: %s</string>
+    <string name="ancestry">Ancestry: %s</string>
     <string name="character_photo">Character Photo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="gender">Gender</string>
-    <string name="house">House</string>
-    <string name="eye_color">Eye color</string>
-    <string name="hair_colour">Hair color</string>
-    <string name="patronus">Patronus</string>
+    <string name="gender">Gender: %s</string>
+    <string name="house">House: %s</string>
+    <string name="eye_color">Eye color: %s</string>
+    <string name="hair_colour">Hair color: %s</string>
+    <string name="patronus">Patronus: %s</string>
 </resources>
