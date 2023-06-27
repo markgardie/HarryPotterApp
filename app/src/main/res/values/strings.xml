@@ -13,4 +13,6 @@
     <string name="hair_colour">Hair color: %s</string>
     <string name="patronus">Patronus: %s</string>
     <string name="spell_description">Spell Description</string>
+    <string name="characters">Characters</string>
+    <string name="spells">Spells</string>
 </resources>

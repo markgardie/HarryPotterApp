@@ -13,8 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SpellListFragment : Fragment() {
 
     private var _binding: FragmentSpellListBinding? = null
-    private val binding: FragmentSpellListBinding =
-        _binding ?: throw RuntimeException("FragmentSpellListBinding is null")
+    private val binding: FragmentSpellListBinding
+        get() = _binding ?: throw RuntimeException("FragmentSpellListBinding is null")
 
 
     override fun onCreateView(
