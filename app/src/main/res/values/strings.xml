@@ -12,4 +12,5 @@
     <string name="eye_color">Eye color: %s</string>
     <string name="hair_colour">Hair color: %s</string>
     <string name="patronus">Patronus: %s</string>
+    <string name="spell_description">Spell Description</string>
 </resources>
