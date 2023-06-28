@@ -1,6 +1,7 @@
 package com.example.harrypotterapp.di
 
 import com.example.harrypotterapp.data.network.CharacterApi
+import com.example.harrypotterapp.data.network.SpellApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +49,12 @@ object NetworkModule {
     @Provides
     fun provideCharacterApi(retrofit: Retrofit): CharacterApi {
         return  retrofit.create(CharacterApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSpellApi(retrofit: Retrofit): SpellApi {
+        return retrofit.create(SpellApi::class.java)
     }
 
     private const val BASE_URL = "https://hp-api.onrender.com/api/"

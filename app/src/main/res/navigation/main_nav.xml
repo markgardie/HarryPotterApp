@@ -24,4 +24,9 @@
             android:name="character"
             app:argType="com.example.harrypotterapp.domain.models.CharacterEntity" />
     </fragment>
+    <fragment
+        android:id="@+id/spellListFragment"
+        android:name="com.example.harrypotterapp.presentation.fragments.SpellListFragment"
+        android:label="fragment_spell_list"
+        tools:layout="@layout/fragment_spell_list" />
 </navigation>
