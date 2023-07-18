@@ -1,20 +1,20 @@
 package com.example.harrypotterapp.presentation.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.harrypotterapp.R
 import com.example.harrypotterapp.databinding.FragmentCharacterListBinding
 import com.example.harrypotterapp.presentation.adapters.CharacterAdapter
-import com.example.harrypotterapp.presentation.viewmodels.CharacterState
 import com.example.harrypotterapp.presentation.viewmodels.CharacterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -52,19 +52,22 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun observerViewModel() {
-        viewModel.state.observe(viewLifecycleOwner) {
-            when (it) {
-                is CharacterState.Loading -> binding.rvCharacter.visibility = View.GONE
-                is CharacterState.Success -> {
-                    binding.rvCharacter.visibility = View.VISIBLE
-                    characterAdapter.submitList(it.data)
-                }
-                is CharacterState.Error -> {
-                    Toast.makeText(
-                        requireActivity(),
-                        it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect {
+
+                    with(binding) {
+                        if (it.isLoading) {
+                            charactersPb.visibility = View.VISIBLE
+                            rvCharacter.visibility = View.GONE
+                        }
+                        if (it.characters.isNotEmpty()) {
+                            charactersPb.visibility = View.GONE
+                            rvCharacter.visibility = View.VISIBLE
+                            characterAdapter.submitList(it.characters)
+                        }
+                    }
+
                 }
             }
         }

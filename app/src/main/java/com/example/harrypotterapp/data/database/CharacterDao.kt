@@ -1,17 +1,16 @@
 package com.example.harrypotterapp.data.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
 
     @Query("select * from characters")
-    suspend fun getCachedCharacters(): List<CharacterDbModel>
+    fun getCharactersStream(): Flow<List<CharacterDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun cacheCharacters(characters: List<CharacterDbModel>)
+    suspend fun updateCharacters(characters: List<CharacterDbModel>)
+
 }

@@ -1,8 +1,10 @@
 package com.example.harrypotterapp.di
 
 import com.example.harrypotterapp.data.repositories.CharacterRepositoryImpl
+import com.example.harrypotterapp.data.repositories.ConnectivityRepositoryImpl
 import com.example.harrypotterapp.data.repositories.SpellRepositoryImpl
 import com.example.harrypotterapp.domain.repositories.CharacterRepository
+import com.example.harrypotterapp.domain.repositories.ConnectivityRepository
 import com.example.harrypotterapp.domain.repositories.SpellRepository
 import dagger.Binds
 import dagger.Module
@@ -21,4 +23,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindSpellRepository(impl: SpellRepositoryImpl): SpellRepository
+
+    @Singleton
+    @Binds
+    fun bindConnectivityRepository(impl: ConnectivityRepositoryImpl): ConnectivityRepository
 }

@@ -5,5 +5,5 @@ import retrofit2.http.GET
 interface SpellApi {
 
     @GET("spells")
-    suspend fun getAllSpells(): List<SpellDto>
+    suspend fun fetchSpells(): List<SpellDto>
 }

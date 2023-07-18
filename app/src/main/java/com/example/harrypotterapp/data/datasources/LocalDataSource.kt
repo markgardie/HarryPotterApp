@@ -1,12 +1,9 @@
 package com.example.harrypotterapp.data.datasources
 
-import androidx.lifecycle.LiveData
 import com.example.harrypotterapp.data.database.CharacterDao
 import com.example.harrypotterapp.data.database.CharacterDbModel
 import com.example.harrypotterapp.data.database.SpellDao
 import com.example.harrypotterapp.data.database.SpellDbModel
-import com.example.harrypotterapp.data.network.SpellDto
-import com.example.harrypotterapp.domain.models.SpellEntity
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
@@ -14,19 +11,16 @@ class LocalDataSource @Inject constructor(
     private val spellDao: SpellDao
 ) {
 
-    suspend fun getCachedCharacters(): List<CharacterDbModel> {
-        return characterDao.getCachedCharacters()
+    fun getCharacterStream() = characterDao.getCharactersStream()
+
+    suspend fun updateCharacters(characters: List<CharacterDbModel>) {
+        characterDao.updateCharacters(characters)
     }
 
-    suspend fun cacheCharacters(characters: List<CharacterDbModel>) {
-        characterDao.cacheCharacters(characters)
+    fun getSpellStream() = spellDao.getSpellsStream()
+
+    suspend fun updateSpells(spells: List<SpellDbModel>) {
+        spellDao.updateSpells(spells)
     }
 
-    suspend fun getCachedSpells(): List<SpellDbModel> {
-        return spellDao.getCachedSpells()
-    }
-
-    suspend fun cacheSpells(spells: List<SpellDbModel>) {
-        spellDao.cacheSpells(spells)
-    }
 }

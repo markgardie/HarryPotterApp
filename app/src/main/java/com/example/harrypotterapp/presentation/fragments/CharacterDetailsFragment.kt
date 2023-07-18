@@ -1,15 +1,14 @@
 package com.example.harrypotterapp.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.databinding.FragmentCharacterDetailsBinding
-import com.example.harrypotterapp.domain.models.CharacterEntity
 
 
 class CharacterDetailsFragment : Fragment() {

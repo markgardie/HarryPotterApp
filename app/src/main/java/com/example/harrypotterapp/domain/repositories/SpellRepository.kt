@@ -1,12 +1,13 @@
 package com.example.harrypotterapp.domain.repositories
 
+import com.example.harrypotterapp.domain.models.CharacterEntity
 import com.example.harrypotterapp.domain.models.SpellEntity
+import kotlinx.coroutines.flow.Flow
 
 interface SpellRepository {
 
-    suspend fun getAllSpells(): List<SpellEntity>
+    fun getSpellsStream(): Flow<List<SpellEntity>>
 
-    suspend fun getCachedSpells(): List<SpellEntity>
+    suspend fun refresh()
 
-    suspend fun cacheSpells(spells: List<SpellEntity>)
 }
