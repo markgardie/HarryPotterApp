@@ -1,14 +1,12 @@
 package com.example.harrypotterapp.domain.repositories
 
-import androidx.lifecycle.LiveData
 import com.example.harrypotterapp.domain.models.CharacterEntity
+import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
 
-    suspend fun getAllCharacters(): List<CharacterEntity>
+    fun getCharactersStream(): Flow<List<CharacterEntity>>
 
-    suspend fun cacheCharacters(characters: List<CharacterEntity>)
-
-    suspend fun getCachedCharacters(): List<CharacterEntity>
+    suspend fun refresh()
 
 }
