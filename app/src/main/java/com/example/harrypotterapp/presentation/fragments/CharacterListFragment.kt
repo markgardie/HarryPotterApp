@@ -84,6 +84,16 @@ class CharacterListFragment : Fragment() {
                 .actionCharacterListFragmentToCharacterDetailsFragment(it)
             findNavController().navigate(action)
         }
+
+        characterAdapter.onFavoriteClickListener = {
+            if (it.isFavorite) {
+                viewModel.updateFavoriteCharacter(it.copy(isFavorite = false))
+            }
+            else {
+                viewModel.updateFavoriteCharacter(it.copy(isFavorite = true))
+            }
+
+        }
     }
 
     override fun onDestroyView() {

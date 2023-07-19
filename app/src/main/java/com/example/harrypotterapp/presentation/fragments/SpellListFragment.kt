@@ -46,6 +46,18 @@ class SpellListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeViewModel()
+        setupOnClickListener()
+    }
+
+    private fun setupOnClickListener() {
+        adapter.onFavoriteClickListener = {
+            if (it.isFavorite) {
+                viewModel.updateFavoriteSpell(it.copy(isFavorite = false))
+            }
+            else {
+                viewModel.updateFavoriteSpell(it.copy(isFavorite = true))
+            }
+        }
     }
 
     private fun setupRecyclerView() {

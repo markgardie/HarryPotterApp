@@ -23,6 +23,10 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override suspend fun refresh() {
         val characters = remoteDataSource.fetchCharacters()
-        localDataSource.updateCharacters(characters.map(CharacterDto::asDbModel))
+        localDataSource.upsertCharacters(characters.map(CharacterDto::asDbModel))
+    }
+
+    override suspend fun updateFavoriteCharacter(characterEntity: CharacterEntity) {
+        localDataSource.updateFavoriteCharacter(characterEntity.asDbModel())
     }
 }

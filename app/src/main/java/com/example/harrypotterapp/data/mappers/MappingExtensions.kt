@@ -17,7 +17,8 @@ fun CharacterDbModel.asEntity() = CharacterEntity(
     eyeColour = eyeColour,
     hairColour = hairColour,
     patronus = patronus,
-    image = image
+    image = image,
+    isFavorite = isFavorite
 )
 
 fun CharacterDto.asDbModel() = CharacterDbModel(
@@ -33,14 +34,36 @@ fun CharacterDto.asDbModel() = CharacterDbModel(
     image = image
 )
 
+fun CharacterEntity.asDbModel() = CharacterDbModel(
+    id = id,
+    name = name,
+    species = species,
+    gender = gender,
+    house = house,
+    ancestry = ancestry,
+    eyeColour = eyeColour,
+    hairColour = hairColour,
+    patronus = patronus,
+    image = image,
+    isFavorite = isFavorite
+)
+
 fun SpellDbModel.asEntity() = SpellEntity(
     id = id,
     name = name,
-    description = description
+    description = description,
+    isFavorite = isFavorite
 )
 
 fun SpellDto.asDbModel() = SpellDbModel(
     id = id,
     name = name,
     description = description
+)
+
+fun SpellEntity.asDbModel() = SpellDbModel(
+    id = id,
+    name = name,
+    description = description,
+    isFavorite = isFavorite
 )

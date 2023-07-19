@@ -13,14 +13,22 @@ class LocalDataSource @Inject constructor(
 
     fun getCharacterStream() = characterDao.getCharactersStream()
 
-    suspend fun updateCharacters(characters: List<CharacterDbModel>) {
-        characterDao.updateCharacters(characters)
+    suspend fun upsertCharacters(characters: List<CharacterDbModel>) {
+        characterDao.upsertCharacters(characters)
+    }
+
+    suspend fun updateFavoriteCharacter(character: CharacterDbModel) {
+        characterDao.updateFavoriteCharacter(character)
     }
 
     fun getSpellStream() = spellDao.getSpellsStream()
 
-    suspend fun updateSpells(spells: List<SpellDbModel>) {
-        spellDao.updateSpells(spells)
+    suspend fun upsertSpells(spells: List<SpellDbModel>) {
+        spellDao.upsertSpells(spells)
+    }
+
+    suspend fun updateFavoriteSpell(spell: SpellDbModel) {
+        spellDao.updateFavoriteSpell(spell)
     }
 
 }

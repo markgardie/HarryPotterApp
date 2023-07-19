@@ -9,4 +9,6 @@ interface CharacterRepository {
 
     suspend fun refresh()
 
+    suspend fun updateFavoriteCharacter(characterEntity: CharacterEntity)
+
 }

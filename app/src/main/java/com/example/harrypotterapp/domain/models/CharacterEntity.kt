@@ -14,5 +14,6 @@ data class CharacterEntity(
     val eyeColour: String,
     val hairColour: String,
     val patronus: String,
-    val image: String
+    val image: String,
+    val isFavorite: Boolean = false
 ): Parcelable

@@ -1,14 +1,11 @@
 package com.example.harrypotterapp.data.repositories
 
-import com.example.harrypotterapp.data.database.CharacterDbModel
 import com.example.harrypotterapp.data.database.SpellDbModel
 import com.example.harrypotterapp.data.datasources.LocalDataSource
 import com.example.harrypotterapp.data.datasources.RemoteDataSource
 import com.example.harrypotterapp.data.mappers.asDbModel
 import com.example.harrypotterapp.data.mappers.asEntity
-import com.example.harrypotterapp.data.network.CharacterDto
 import com.example.harrypotterapp.data.network.SpellDto
-import com.example.harrypotterapp.domain.models.CharacterEntity
 import com.example.harrypotterapp.domain.models.SpellEntity
 import com.example.harrypotterapp.domain.repositories.SpellRepository
 import kotlinx.coroutines.flow.Flow
@@ -26,6 +23,10 @@ class SpellRepositoryImpl @Inject constructor(
 
     override suspend fun refresh() {
         val spells = remoteDataSource.fetchSpells()
-        localDataSource.updateSpells(spells.map(SpellDto::asDbModel))
+        localDataSource.upsertSpells(spells.map(SpellDto::asDbModel))
+    }
+
+    override suspend fun updateFavoriteSpell(spellEntity: SpellEntity) {
+        localDataSource.updateFavoriteSpell(spellEntity.asDbModel())
     }
 }

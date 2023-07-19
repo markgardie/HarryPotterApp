@@ -42,6 +42,12 @@ class CharacterViewModel @Inject constructor(
         }
     }
 
+    fun updateFavoriteCharacter(characterEntity: CharacterEntity) {
+        viewModelScope.launch {
+            characterRepository.updateFavoriteCharacter(characterEntity)
+        }
+    }
+
 }
 
 data class CharactersUiState(
