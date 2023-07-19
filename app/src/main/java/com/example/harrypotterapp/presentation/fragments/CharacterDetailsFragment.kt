@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.databinding.FragmentCharacterDetailsBinding
+import com.example.harrypotterapp.domain.models.CharacterEntity
 import com.example.harrypotterapp.presentation.viewmodels.CharacterViewModel
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,8 @@ class CharacterDetailsFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentCharacterDetailsBinding is null")
 
     private val args by navArgs<CharacterDetailsFragmentArgs>()
+
+    private lateinit var character: CharacterEntity
 
     private val viewModel: CharacterViewModel by activityViewModels()
 
@@ -51,20 +54,21 @@ class CharacterDetailsFragment : Fragment() {
 
 
     private fun setupOnFavoriteListener() {
-        val character = args.character
         binding.ivCharacterDetailsFavorite.setOnClickListener {
             if (character.isFavorite) {
-                viewModel.updateFavoriteCharacter(character.copy(isFavorite = false))
+                character = character.copy(isFavorite = false)
+                viewModel.updateFavoriteCharacter(character)
                 binding.ivCharacterDetailsFavorite.setImageResource(R.drawable.ic_not_favorite)
             } else {
-                viewModel.updateFavoriteCharacter(character.copy(isFavorite = true))
-                binding.ivCharacterDetailsFavorite.setImageResource(R.drawable.ic_not_favorite)
+                character = character.copy(isFavorite = true)
+                viewModel.updateFavoriteCharacter(character)
+                binding.ivCharacterDetailsFavorite.setImageResource(R.drawable.ic_favorite)
             }
         }
     }
 
     private fun setupViews() {
-        val character = args.character
+        character = args.character
         with(binding) {
             ivDetailsPhoto.load(character.image)
             tvDetailsName.text = character.name

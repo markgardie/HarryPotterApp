@@ -29,7 +29,7 @@ class CharacterListFragment : Fragment() {
         CharacterAdapter()
     }
 
-    private val viewModel: CharacterViewModel by activityViewModels()
+    private val viewModel: CharacterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
