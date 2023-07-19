@@ -79,6 +79,7 @@ class SpellListFragment : Fragment() {
                             rvSpell.visibility = View.VISIBLE
                             adapter.submitList(it.spells)
                         }
+                        else viewModel.refresh()
                     }
                 }
             }

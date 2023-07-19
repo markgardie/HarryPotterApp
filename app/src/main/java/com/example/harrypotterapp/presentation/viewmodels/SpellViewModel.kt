@@ -38,16 +38,17 @@ class SpellViewModel @Inject constructor(
         SpellsUiState()
     )
 
-    init {
-        viewModelScope.launch {
-            if(connectivityRepository.hasInternetConnection()) spellRepository.refresh()
-        }
-    }
-
     fun updateFavoriteSpell(spellEntity: SpellEntity) {
         viewModelScope.launch {
             spellRepository.updateFavoriteSpell(spellEntity)
         }
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            if (connectivityRepository.hasInternetConnection()) spellRepository.refresh()
+        }
+
     }
 
 }

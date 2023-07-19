@@ -126,4 +126,13 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/iv_character_details_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_not_favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_details_photo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

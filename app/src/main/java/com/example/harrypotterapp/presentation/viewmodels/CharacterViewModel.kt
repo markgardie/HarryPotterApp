@@ -36,16 +36,18 @@ class CharacterViewModel @Inject constructor(
         CharactersUiState()
     )
 
-    init {
-        viewModelScope.launch {
-            if(connectivityRepository.hasInternetConnection()) characterRepository.refresh()
-        }
-    }
 
     fun updateFavoriteCharacter(characterEntity: CharacterEntity) {
         viewModelScope.launch {
             characterRepository.updateFavoriteCharacter(characterEntity)
         }
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            if (connectivityRepository.hasInternetConnection()) characterRepository.refresh()
+        }
+
     }
 
 }

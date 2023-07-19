@@ -5,10 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.databinding.FragmentCharacterDetailsBinding
+import com.example.harrypotterapp.presentation.viewmodels.CharacterViewModel
+import kotlinx.coroutines.launch
 
 
 class CharacterDetailsFragment : Fragment() {
@@ -18,6 +25,8 @@ class CharacterDetailsFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentCharacterDetailsBinding is null")
 
     private val args by navArgs<CharacterDetailsFragmentArgs>()
+
+    private val viewModel: CharacterViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +46,21 @@ class CharacterDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+        setupOnFavoriteListener()
+    }
+
+
+    private fun setupOnFavoriteListener() {
+        val character = args.character
+        binding.ivCharacterDetailsFavorite.setOnClickListener {
+            if (character.isFavorite) {
+                viewModel.updateFavoriteCharacter(character.copy(isFavorite = false))
+                binding.ivCharacterDetailsFavorite.setImageResource(R.drawable.ic_not_favorite)
+            } else {
+                viewModel.updateFavoriteCharacter(character.copy(isFavorite = true))
+                binding.ivCharacterDetailsFavorite.setImageResource(R.drawable.ic_not_favorite)
+            }
+        }
     }
 
     private fun setupViews() {
@@ -80,6 +104,12 @@ class CharacterDetailsFragment : Fragment() {
                 getString(R.string.patronus),
                 character.patronus
             )
+
+            if (character.isFavorite) {
+                ivCharacterDetailsFavorite.setImageResource(R.drawable.ic_favorite)
+            } else {
+                ivCharacterDetailsFavorite.setImageResource(R.drawable.ic_not_favorite)
+            }
         }
     }
 
