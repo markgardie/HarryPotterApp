@@ -9,6 +9,9 @@ interface CharacterDao {
     @Query("select * from characters")
     fun getCharactersStream(): Flow<List<CharacterDbModel>>
 
+    @Query("select * from characters")
+    suspend fun getCharacters(): List<CharacterDbModel>
+
     @Upsert
     suspend fun upsertCharacters(characters: List<CharacterDbModel>)
 

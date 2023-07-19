@@ -44,6 +44,7 @@ class SpellListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.refresh()
         setupRecyclerView()
         observeViewModel()
         setupOnClickListener()
@@ -79,7 +80,6 @@ class SpellListFragment : Fragment() {
                             rvSpell.visibility = View.VISIBLE
                             adapter.submitList(it.spells)
                         }
-                        else viewModel.refresh()
                     }
                 }
             }

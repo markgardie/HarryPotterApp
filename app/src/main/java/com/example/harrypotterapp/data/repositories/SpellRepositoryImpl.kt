@@ -22,8 +22,30 @@ class SpellRepositoryImpl @Inject constructor(
             .map { it.map(SpellDbModel::asEntity) }
 
     override suspend fun refresh() {
-        val spells = remoteDataSource.fetchSpells()
-        localDataSource.upsertSpells(spells.map(SpellDto::asDbModel))
+        val spellsNetwork = remoteDataSource.fetchSpells().map(SpellDto::asDbModel)
+        val spellsLocal = localDataSource.getSpells()
+
+        val mergedSpells = mutableListOf<SpellDbModel>()
+
+        mergedSpells.addAll(spellsNetwork)
+
+        for (spell in spellsLocal) {
+
+            val existingSpellIndex = mergedSpells.indexOfFirst { it.id == spell.id }
+
+            if (existingSpellIndex != -1) {
+
+                val existingSpell = mergedSpells[existingSpellIndex]
+                val updatedSpell = existingSpell.copy(isFavorite = spell.isFavorite)
+                mergedSpells[existingSpellIndex] = updatedSpell
+            } else {
+
+                mergedSpells.add(spell)
+            }
+
+        }
+
+        localDataSource.upsertSpells(mergedSpells)
     }
 
     override suspend fun updateFavoriteSpell(spellEntity: SpellEntity) {
