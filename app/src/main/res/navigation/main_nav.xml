@@ -29,4 +29,9 @@
         android:name="com.example.harrypotterapp.presentation.fragments.SpellListFragment"
         android:label="fragment_spell_list"
         tools:layout="@layout/fragment_spell_list" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.harrypotterapp.presentation.fragments.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>
