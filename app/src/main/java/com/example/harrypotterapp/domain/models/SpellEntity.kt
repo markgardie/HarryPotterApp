@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class SpellEntity(
     val id: String,
     val name: String,
-    val description: String
+    val description: String,
+    val isFavorite: Boolean = false
 ): Parcelable

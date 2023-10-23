@@ -2,6 +2,7 @@ package com.example.harrypotterapp.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.harrypotterapp.domain.models.CharacterEntity
 import com.example.harrypotterapp.domain.models.SpellEntity
 import com.example.harrypotterapp.domain.repositories.ConnectivityRepository
 import com.example.harrypotterapp.domain.repositories.SpellRepository
@@ -37,10 +38,17 @@ class SpellViewModel @Inject constructor(
         SpellsUiState()
     )
 
-    init {
+    fun updateFavoriteSpell(spellEntity: SpellEntity) {
         viewModelScope.launch {
-            if(connectivityRepository.hasInternetConnection()) spellRepository.refresh()
+            spellRepository.updateFavoriteSpell(spellEntity)
         }
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            if (connectivityRepository.hasInternetConnection()) spellRepository.refresh()
+        }
+
     }
 
 }

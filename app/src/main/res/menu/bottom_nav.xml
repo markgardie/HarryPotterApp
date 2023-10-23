@@ -10,4 +10,9 @@
         android:id="@+id/spellListFragment"
         android:title="@string/spells"
         android:icon="@drawable/ic_spell"/>
+
+    <item
+        android:id="@+id/favoritesFragment"
+        android:title="@string/spells"
+        android:icon="@drawable/ic_favorite"/>
 </menu>

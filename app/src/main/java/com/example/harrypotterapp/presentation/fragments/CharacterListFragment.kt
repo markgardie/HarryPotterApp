@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -66,6 +67,7 @@ class CharacterListFragment : Fragment() {
                             rvCharacter.visibility = View.VISIBLE
                             characterAdapter.submitList(it.characters)
                         }
+                        else viewModel.refresh()
                     }
 
                 }
@@ -83,6 +85,16 @@ class CharacterListFragment : Fragment() {
             val action = CharacterListFragmentDirections
                 .actionCharacterListFragmentToCharacterDetailsFragment(it)
             findNavController().navigate(action)
+        }
+
+        characterAdapter.onFavoriteClickListener = {
+            if (it.isFavorite) {
+                viewModel.updateFavoriteCharacter(it.copy(isFavorite = false))
+            }
+            else {
+                viewModel.updateFavoriteCharacter(it.copy(isFavorite = true))
+            }
+
         }
     }
 

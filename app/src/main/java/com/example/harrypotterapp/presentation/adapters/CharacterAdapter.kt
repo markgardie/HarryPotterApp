@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import coil.load
+import com.example.harrypotterapp.R
 import com.example.harrypotterapp.databinding.ItemCharacterBinding
 import com.example.harrypotterapp.domain.models.CharacterEntity
 
 class CharacterAdapter: ListAdapter<CharacterEntity, CharacterViewHolder>(CharacterDiffUtil()) {
 
     var onItemClickListener: ((CharacterEntity) -> Unit)? = null
+    var onFavoriteClickListener: ((CharacterEntity) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemCharacterBinding.inflate(
@@ -31,6 +33,12 @@ class CharacterAdapter: ListAdapter<CharacterEntity, CharacterViewHolder>(Charac
             tvAncestry.text = character.ancestry
             root.setOnClickListener {
                 onItemClickListener?.invoke(character)
+            }
+            if (character.isFavorite) ivCharacterFavorite.setImageResource(R.drawable.ic_favorite)
+            else ivCharacterFavorite.setImageResource(R.drawable.ic_not_favorite)
+
+            ivCharacterFavorite.setOnClickListener {
+                onFavoriteClickListener?.invoke(character)
             }
         }
 

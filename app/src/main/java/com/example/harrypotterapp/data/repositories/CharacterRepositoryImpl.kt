@@ -8,8 +8,7 @@ import com.example.harrypotterapp.data.mappers.asEntity
 import com.example.harrypotterapp.data.network.CharacterDto
 import com.example.harrypotterapp.domain.models.CharacterEntity
 import com.example.harrypotterapp.domain.repositories.CharacterRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
@@ -22,7 +21,33 @@ class CharacterRepositoryImpl @Inject constructor(
             .map { it.map(CharacterDbModel::asEntity) }
 
     override suspend fun refresh() {
-        val characters = remoteDataSource.fetchCharacters()
-        localDataSource.updateCharacters(characters.map(CharacterDto::asDbModel))
+        val charactersNetwork = remoteDataSource.fetchCharacters().map(CharacterDto::asDbModel)
+        val charactersLocal = localDataSource.getCharacters()
+
+        val mergedCharacters = mutableListOf<CharacterDbModel>()
+
+        mergedCharacters.addAll(charactersNetwork)
+
+        for (character in charactersLocal) {
+
+            val existingCharacterIndex = mergedCharacters.indexOfFirst { it.id == character.id }
+
+            if (existingCharacterIndex != -1) {
+
+                val existingCharacter = mergedCharacters[existingCharacterIndex]
+                val updatedCharacter = existingCharacter.copy(isFavorite = character.isFavorite)
+                mergedCharacters[existingCharacterIndex] = updatedCharacter
+            } else {
+
+                mergedCharacters.add(character)
+            }
+
+        }
+
+        localDataSource.upsertCharacters(mergedCharacters)
+    }
+
+    override suspend fun updateFavoriteCharacter(characterEntity: CharacterEntity) {
+        localDataSource.updateFavoriteCharacter(characterEntity.asDbModel())
     }
 }

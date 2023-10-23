@@ -8,5 +8,6 @@ data class SpellDbModel(
     @PrimaryKey
     val id: String,
     val name: String,
-    val description: String
+    val description: String,
+    val isFavorite: Boolean = false
 )

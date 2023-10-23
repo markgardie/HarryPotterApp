@@ -15,5 +15,6 @@ data class CharacterDbModel(
     val eyeColour: String,
     val hairColour: String,
     val patronus: String,
-    val image: String
+    val image: String,
+    val isFavorite: Boolean = false
 )
